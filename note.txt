@@ -1,0 +1,26 @@
+i. Read file and extract data line by line.
+
+ii. Push the data on the second line to array
+
+iii. Determine the maximum number of slices and the array length
+
+iv. Find the different ways the elements of the array can be combined (combination using recursion)
+
+v. Convert each combination to array and find the sum of the elements of the array.
+
+vi. Initialize a variable X to 0 ( where 0 > X < max pizza slices)
+
+vii. If the sum of the array (v) is less than the maximum pizza slice and the sum is greater than the     variable X, then X(vi) is equal to the sum of the array.
+
+viii. Stop once the program if the sum of the variable is equal to the maximum number of slices required
+
+ix. Initialize an empty array to hold the sum greater than the maximum amount of slices. This will be used to determine the number of times the program should run before it terminates
+
+x. if the sum is greater than the maximum pizza slices push the sum to the array (ix).
+
+xi. If the array length of sum greater than maximum slices of pizza is greater than n then terminate the program and display X (vi).
+
+
+
+// covert to set
+//Loop from back to front

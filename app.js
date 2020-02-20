@@ -3,6 +3,7 @@ const fs = require("fs");
 function get_line(filename, callback) {
   var data = fs.readFileSync(filename, "ASCII");
   var lines = data.split("\n");
+  var fName = "output_" + filename;
 
   // read the first and second line
   const firstLine = lines[0].split(" ");
@@ -26,6 +27,10 @@ function get_line(filename, callback) {
       buildWord(word + char, [i], chars, combinations, chars);
     }
     console.log(`The closest value is ${sum_arr}`);
+    let result = `${sum_arr} ${"\r\n"} ${i.toString().replace(/,/g, " ")}`;
+    fs.writeFileSync(fName, result, function(err) {
+      if (err) throw "error writing file: " + err;
+    });
     // console.log(`${sum_arr} ${"\r\n"} ${newUsedIndexesArray}`);
   }
 
@@ -44,12 +49,10 @@ function get_line(filename, callback) {
         let newUsedIndexesArray = Array.from(usedIndexes);
         var combo = [];
         var c_sum = 0;
-        console.log(newUsedIndexesArray);
         newUsedIndexesArray.map(x => {
           combo.push(c_chars[x]);
           c_sum = combo.reduce(getSum, 0);
         });
-        console.log(c_sum);
         if (c_sum < maxSlices) {
           newUsedIndexesArray.push(i);
           if (sum_arr < c_sum) {
@@ -64,8 +67,15 @@ function get_line(filename, callback) {
           );
         } else if (c_sum == maxSlices) {
           console.log("SUM FOUND...");
-          console.log(`${c_sum} ${"\r\n"} ${newUsedIndexesArray}`);
-          throw new Error("Value Found");
+          // console.log(`${c_sum} ${"\r\n"} ${newUsedIndexesArray}`);
+          let result = `${c_sum}${"\r\n"}${newUsedIndexesArray
+            .toString()
+            .replace(/,/g, " ")
+            .trim()}`;
+          fs.writeFileSync(fName, result, function(err) {
+            if (err) throw "error writing file: " + err;
+          });
+          throw "found";
         } else {
           g_sum.push(c_sum);
 
@@ -73,13 +83,19 @@ function get_line(filename, callback) {
 
           // increase the runtime here
           if (c_chars.length > 50) {
-            l = maxSlices;
+            l = 100000;
           } else {
             l = 20000;
           }
 
           if (g_sum.length > l) {
-            console.log(`${sum_arr} ${"\r\n"} ${newUsedIndexesArray}`);
+            // console.log(`${sum_arr} ${"\r\n"} ${newUsedIndexesArray}`);
+            let result = `${sum_arr}${"\r\n"}${newUsedIndexesArray
+              .toString()
+              .replace(/,/g, " ")}`;
+            fs.writeFileSync(fName, result, function(err) {
+              if (err) throw "error writing file: " + err;
+            });
             throw new Error("Value Exceeded");
           }
         }
