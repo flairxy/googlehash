@@ -68,7 +68,8 @@ function get_line(filename, callback) {
         } else if (c_sum == maxSlices) {
           console.log("SUM FOUND...");
           // console.log(`${c_sum} ${"\r\n"} ${newUsedIndexesArray}`);
-          let result = `${c_sum}${"\r\n"}${newUsedIndexesArray
+          let arrLength = newUsedIndexesArray.length;
+          let result = `${arrLength}${"\r\n"}${newUsedIndexesArray
             .toString()
             .replace(/,/g, " ")
             .trim()}`;
@@ -90,7 +91,8 @@ function get_line(filename, callback) {
 
           if (g_sum.length > l) {
             // console.log(`${sum_arr} ${"\r\n"} ${newUsedIndexesArray}`);
-            let result = `${sum_arr}${"\r\n"}${newUsedIndexesArray
+            let arrLength = newUsedIndexesArray.length;
+            let result = `${arrLength}${"\r\n"}${newUsedIndexesArray
               .toString()
               .replace(/,/g, " ")}`;
             fs.writeFileSync(fName, result, function(err) {
