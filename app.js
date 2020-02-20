@@ -76,7 +76,8 @@ function get_line(filename, callback) {
           fs.writeFileSync(fName, result, function(err) {
             if (err) throw "error writing file: " + err;
           });
-          throw "found";
+          // throw "found";
+          return;
         } else {
           g_sum.push(c_sum);
 
@@ -84,13 +85,13 @@ function get_line(filename, callback) {
 
           // increase the runtime here
           if (c_chars.length > 50) {
-            l = 100000;
+            l = 20000;
           } else {
             l = 20000;
           }
 
-          if (g_sum.length > l) {
-            // console.log(`${sum_arr} ${"\r\n"} ${newUsedIndexesArray}`);
+          if (g_sum.length == l) {
+            console.log(`${sum_arr} ${"\r\n"} ${newUsedIndexesArray}`);
             let arrLength = newUsedIndexesArray.length;
             let result = `${arrLength}${"\r\n"}${newUsedIndexesArray
               .toString()
@@ -98,7 +99,7 @@ function get_line(filename, callback) {
             fs.writeFileSync(fName, result, function(err) {
               if (err) throw "error writing file: " + err;
             });
-            throw new Error("Value Exceeded");
+            return;
           }
         }
       }
@@ -120,10 +121,10 @@ function get_line(filename, callback) {
 //   // console.log(res);
 // });
 
-get_line("c_medium.in", function(err, res) {
-  // console.log(res);
-});
-
-// get_line("e_also_big.in", function(err, res) {
-//   console.log(res);
+// get_line("c_medium.in", function(err, res) {
+//   // console.log(res);
 // });
+
+get_line("e_also_big.in", function(err, res) {
+  console.log(res);
+});
